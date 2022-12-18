@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Add a line to a map using a GeoJSON source</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+   
+   
+   <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // TO MAKE THE MAP APPEAR YOU MUST
+      // ADD YOUR ACCESS TOKEN FROM
+      // https://account.mapbox.com
+      mapboxgl.accessToken =
+        "pk.eyJ1Ijoia2F0YWx5c3R0ZWNoIiwiYSI6ImNsYmk3anVxZjBhNWgzb285eWtxd2ZyaGUifQ.w2qXxA4pjScrGvjnaTj8QA";
+      const map = new mapboxgl.Map({
+        container: "map",
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [-4.510629473227965, 55.837102397341226],
+        zoom: 14,
+      });
+
+      map.on("load", () => {
+
+
+        map.addSource("route", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: [
+                    [-4.510629473227965, 55.837102397341226],
+                    [-4.51050201827789, 55.83732164269273],
+                    [-4.509961544752713, 55.837215644061445],
+                    [-4.510022852197352, 55.837115986965074],
+                    [-4.510153533855288, 55.836896740453994],
+                    [-4.510458457724525, 55.83695200518699],
+                    [-4.510389083511228, 55.83705347465599],
+                    [-4.510632699935826, 55.83710149136607],
+                  ],
+                  type: "LineString",
+                },
+              },
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  coordinates: [
+                    [-4.5106085332697035, 55.83698267921602],
+                    [-4.509869626044434, 55.83684105514942],
+                    [-4.5099470564431385, 55.83671806540991],
+                    [-4.510697025153377, 55.83685720528851],
+                    [-4.5106085332697035, 55.83698764847213],
+                  ],
+                  type: "LineString",
+                },
+              },
+            ],
+          },
+        });
+       
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: "route",
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "#888",
+            "line-width": 8,
+          },
+        });
+
+
+      });
+    </script>
+  </body>
+</html>
