@@ -3,18 +3,15 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   value: 0,
   currentLocation: {
-    lat:  55.83679834670928,
-    lng:  -4.51081991067973
+    lat: 55.83679834670928,
+    lng: -4.51081991067973
   },
   restrictedAreas: [
-    [-4.510629473227965, 55.837102397341226],
-    [-4.51050201827789, 55.83732164269273],
-    [-4.509961544752713, 55.837215644061445],
-    [-4.510022852197352, 55.837115986965074],
-    [-4.510153533855288, 55.836896740453994],
-    [-4.510458457724525, 55.83695200518699],
-    [-4.510389083511228, 55.83705347465599],
-    [-4.510632699935826, 55.83710149136607],
+  
+  ] ,
+  
+  myArea: [
+  
   ]
 }
 
@@ -35,10 +32,37 @@ export const counterSlice = createSlice({
     incrementByAmount: (state, action) => {
       state.value += action.payload
     },
+
+    setCurrentLocation: (state, action) => {
+      state.currentLocation.lat = action.payload.latitude
+      state.currentLocation.lng = action.payload.longitude
+    },
+
+
+    addRestrictedArea: (state, action) => {
+      console.log("addRestrictedArea ???", action.payload)
+
+      // state.restrictedAreas.push(action.payload)
+      // state.restrictedAreas =  action.payload
+
+
+      // update the state with the new restricted area
+
+      state.restrictedAreas =  action.payload
+    }
+
+
+
+
+
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+export const { increment, decrement, incrementByAmount ,setCurrentLocation,addRestrictedArea } = counterSlice.actions
 
 export default counterSlice.reducer

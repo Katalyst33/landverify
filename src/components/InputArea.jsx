@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 const InputArea = () => {
+
+  const [form, setForm] = useState({
+    restrictedArea: [
+    ]
+  });
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -38,8 +43,15 @@ const InputArea = () => {
     });
   };
 
+
+  function handleChange(event) {
+
+    const inputValue = event.target.value;
+    setForm(inputValue);
+  }
+
   return (
-    <div>
+    <div className='border-blue-500 border-2'>
       <button onClick={requestLocationPermission}>
         Enable Location
       </button>
@@ -48,6 +60,24 @@ const InputArea = () => {
           Latitude: {latitude} Longitude: {longitude}
         </p>
       )}
+
+
+      <div>
+        <div className=''>
+          <label>Restricted Area:</label>
+
+          <hr className='bg-red-500 border-b border-red-600'></hr>
+          {JSON.stringify(form.restrictedArea)}
+          <br />
+          <textarea value={form.restrictedArea} onChange={handleChange}
+            className='border-2' rows={10} cols={40} />
+          <br />
+          <button className='bg-green-400' onClick={() => updateRestrictedArea()}>Add Data</button>
+
+
+        </div>
+
+      </div>
     </div>
   );
 };
