@@ -22,6 +22,7 @@ const Map = () => {
         map.resize();
         
 
+    
         
       });
     };
