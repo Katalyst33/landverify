@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import InputArea from './components/InputArea'
-import MapArea from './components/MapArea'
+import MapArea from './components/MapAreaComponent'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment } from './store/counterSlice'
 import Layout from "./pages/Layout";

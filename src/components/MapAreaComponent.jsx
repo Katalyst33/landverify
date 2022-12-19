@@ -1,13 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+
 import mapboxgl from 'mapbox-gl';
 
 const Map = () => {
+  const count = useSelector((state) => state.counter.value)
+
+  
+
   const [map, setMap] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const container = useRef(null);
+  const MAP_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
   useEffect(() => {
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2F0YWx5c3R0ZWNoIiwiYSI6ImNsYmk3anVxZjBhNWgzb285eWtxd2ZyaGUifQ.w2qXxA4pjScrGvjnaTj8QA';
+    mapboxgl.accessToken = MAP_TOKEN;
     const initializeMap = ({ setMap, mapContainer }) => {
       const map = new mapboxgl.Map({
         container: mapContainer,
