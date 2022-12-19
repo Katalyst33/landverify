@@ -3,8 +3,11 @@ import InputArea from './components/InputArea'
 import MapArea from './components/MapArea'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment } from './store/counterSlice'
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import MapPage from "./pages/MapPage";
 
-import {BrowserRouter, Route, Routes, Link} from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 
 function App() {
 
@@ -12,30 +15,18 @@ function App() {
   const dispatch = useDispatch()
 
   return (
-    <div>
-      <div className="">
-      <div>
-      <button
-        aria-label="Increment value"
-        onClick={() => dispatch(increment())}
-      >
-        Increment
-      </button>
-      <span>{count}</span>
-      <button
-        aria-label="Decrement value"
-        onClick={() => dispatch(decrement())}
-      >
-        Decrement
-      </button>
-    </div>
-        <div>   <h1>Land Verify22</h1></div>
+    <BrowserRouter>
+      <main>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="map-page" element={<MapPage />} />
 
-        <InputArea />
+          </Route>
+        </Routes>
+      </main>
 
-        <MapArea />
-      </div>
-    </div>
+    </BrowserRouter>
   )
 }
 
