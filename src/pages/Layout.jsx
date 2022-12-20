@@ -12,7 +12,7 @@ const Layout = () => {
           </div>
 
           <nav  >
-            <ul className="flex gap-x-4 text-white">
+            <ul className="lg:flex gap-x-4 text-white">
               <li>
                 <Link to="/">Home</Link>
               </li>

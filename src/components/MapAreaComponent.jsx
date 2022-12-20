@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import mapboxgl from 'mapbox-gl';
 
-const Map = () => {
+const Map = ({restrictedArea, usersArea, hasData,setHasData}) => {
   const currentLocation = useSelector((state) => state.counter.currentLocation)
-  const restrictedArea = useSelector((state) => state.counter.restrictedAreas)
+  // const restrictedArea = useSelector((state) => state.counter.restrictedAreas)
   const myArea = useSelector((state) => state.counter.myArea)
-
-  
 
   const [map, setMap] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
@@ -40,7 +38,7 @@ const Map = () => {
                   properties: {},
                   geometry: {
                     coordinates: [
-                      ...restrictedArea
+                      ...usersArea
                     ],
                     type: "LineString",
                   },
@@ -50,7 +48,8 @@ const Map = () => {
                   properties: {},
                   geometry: {
                     coordinates: [
-               ...myArea
+                        ...restrictedArea
+
                     ],
                     type: "LineString",
                   },
@@ -58,7 +57,7 @@ const Map = () => {
               ],
             },
           });
-         
+
           map.addLayer({
             id: "route",
             type: "line",
@@ -72,17 +71,23 @@ const Map = () => {
               "line-width": 8,
             },
           });
-  
-
-        
-
-    
-        
       });
     };
 
-    if (!map) initializeMap({ setMap, mapContainer: container.current });
-  }, [map]);
+    if (!map) {
+        initializeMap({ setMap, mapContainer: container.current });
+    }else{
+
+        if(hasData){
+            initializeMap({ setMap, mapContainer: container.current });
+
+            setHasData(false)
+
+        }
+
+        // console.log('here i a m')
+    }
+  }, [map,hasData]);
 
   useEffect(() => {
     if (map) {
@@ -118,21 +123,31 @@ const Map = () => {
         }
       });
     }
-  }, [map, userLocation,restrictedArea,myArea]);
+  }, [map, userLocation,]);
 
   return (
 
    <div>
-   <div> lat: {
+
+{/*   <div> lat: {
       currentLocation.lat
    }
-   
+
    long: {
       currentLocation.lng
    }
-   
-   </div>
+
+   </div>*/}
+
+   {
+    container &&
+
    <div ref={container} style={{ width: '100%', height: '800px' }} />
+
+   }
+
+
+
    </div>
   );
 };

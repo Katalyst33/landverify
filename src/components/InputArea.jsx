@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const InputArea = () => {
+const InputArea = ({restrictedArea,updateRestrictedArea,updateUsersArea, usersArea,resetArea,addArea}) => {
 
-  const [form, setForm] = useState({
-    restrictedArea: [
-    ]
-  });
   const [hasLocationPermission, setHasLocationPermission] = useState(false);
+  const [rArea, setRArea] = useState([]);
+  // const [mArea, setMArea] = useState(null);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
 
@@ -45,16 +43,17 @@ const InputArea = () => {
 
 
   function handleChange(event) {
-
     const inputValue = event.target.value;
-    setForm(inputValue);
+    setRArea(inputValue);
+    // console.log(mArea);
+    console.log(rArea);
   }
 
   return (
     <div className='border-blue-500 border-2'>
-      <button onClick={requestLocationPermission}>
+    {/*  <button onClick={requestLocationPermission}>
         Enable Location
-      </button>
+      </button>*/}
       {hasLocationPermission && (
         <p>
           Latitude: {latitude} Longitude: {longitude}
@@ -64,17 +63,34 @@ const InputArea = () => {
 
       <div>
         <div className=''>
-          <label>Restricted Area:</label>
 
-          <hr className='bg-red-500 border-b border-red-600'></hr>
-          {JSON.stringify(form.restrictedArea)}
+       <div className="lg:flex gap-x-4">
+
+           <div>
+               <label>Restricted Area:</label>
+
+               <br />
+               <textarea value={restrictedArea}  onChange={updateRestrictedArea}
+                         className='border-2' rows={10} cols={40} />
+           </div>
+
+           <div>
+               <label>user Area:</label>
+
+               <br />
+               <textarea value={usersArea}  onChange={updateUsersArea}
+                         className='border-2' rows={10} cols={40} />
+           </div>
+       </div>
           <br />
-          <textarea value={form.restrictedArea} onChange={handleChange}
-            className='border-2' rows={10} cols={40} />
-          <br />
-          <button className='bg-green-400' onClick={() => updateRestrictedArea()}>Add Data</button>
+
+<div className="flex gap-x-4">
+
+    <button className='bg-red-400' onClick={() => resetArea()}>Clear Data</button>
+    <button className='bg-green-400' onClick={() => addArea()}>Add Area</button>
 
 
+</div>
         </div>
 
       </div>
