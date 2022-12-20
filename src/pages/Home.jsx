@@ -1,8 +1,16 @@
+import {Link} from "react-router-dom";
+
 const Home = () => {
   return <div className="">
     <div className="text-center py-40">
       <h1 className="text-5xl ">Welcome To Land Verify</h1>
       <p>Get Geo data about your Defined Land Area. </p>
+
+        <div  className="text-green-500 my-10">
+            <Link to="/map-page">VERIFY AREA NOW</Link>
+
+        </div>
+
     </div>
 
 
